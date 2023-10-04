@@ -55,12 +55,17 @@ class TreePrinter:
                 summary += [""] * (min_summary_len - len(summary))
 
             # 1st line
-            bullet = "*" if child_is_head else "o"
+            if child_is_head:
+                bullet = "\x1b[1m@"
+                postfix = "\x1b[0m"
+            else:
+                bullet = "o"
+                postfix = ""
             if i == 0:
                 graph = main_graph_connector + bullet
             else:
                 graph = main_graph_connector + " " + bullet
-            print(prefix + graph + "  " + summary[0])
+            print(prefix + graph + "  " + summary[0] + postfix)
 
             # Update the connector character
             graph_connector = "|" if child.is_direct_child() else ":"
